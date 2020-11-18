@@ -1,8 +1,16 @@
 package com.tcs.certification.banitsmo.stepDefinitions;
 
-import org.openqa.selenium.WebDriver;
+import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
+import static org.hamcrest.Matchers.is;
 
+import org.openqa.selenium.WebDriver;
+import com.tcs.certification.banitsmo.questions.Categoria;
+import com.tcs.certification.banitsmo.tasks.Descarga;
+import com.tcs.certification.banitsmo.tasks.IngresaA;
 import com.tcs.certification.banitsmo.tasks.OpenTheBrowser;
+import com.tcs.certification.banitsmo.tasks.Selecciona;
+import com.tcs.certification.banitsmo.tasks.SeleccionaCuenta;
+import com.tcs.certification.banitsmo.tasks.SeleccionaOpcion;
 
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -28,23 +36,50 @@ public class DescargaDocumento_StepDefinitios {
 	
 	@Given("^Lina ingresa en la Pagina de Banitsmo$")
 	public void linaIngresaEnLaPaginaDeBanitsmo() {
-	    // Write code here that turns the phrase above into concrete actions
-		
-		Lina.wasAbleTo(OpenTheBrowser.on());
-	}
-
-	@When("^Selecciona Cuenta de Ahorros Comercial$")
-	public void seleccionaCuentaDeAhorrosComercial() {
-	    // Write code here that turns the phrase above into concrete actions
 	    
+		Lina.wasAbleTo(OpenTheBrowser.on());
+
 	}
 
-    @Then("^ella puede descargar el Docuemento$")
-    public void ellaPuedeDescargarElDocuemento() {
-    // Write code here that turns the phrase above into concrete actions
-    
-}
-   
+	@When("^ella selecciona Productos y Servicios$")
+	public void ellaSeleccionaProductosYServicios() {
+	    
+		Lina.attemptsTo(IngresaA.ProductosYservicios());
+	}
+
+	@Then("^puede ver la categoria Depositos$")
+	public void puedeVerLaCategoriaDepositos() {
+	    
+		Lina.should(seeThat(Categoria.Depositos(), is("Depósitos")));
+	}
+
+	
+	@Given("^Lina selecciona categoria Depositos$")
+	public void linaSeleccionaCategoriaDepositos() {
+	    
+		Lina.attemptsTo(SeleccionaOpcion.Depositos());
+	}
+
+	@When("^ella selecciona Cuenta de Ahorro Comecial$")
+	public void ellaSeleccionaCuentaDeAhorroComecial() {
+	    
+		Lina.attemptsTo(SeleccionaCuenta.DeAhorroComercial());
+	}
+
+	@Then("^selecciona opcion Documentos$")
+	public void seleccionaOpcionDocumentos() {
+	    
+		Lina.attemptsTo(Selecciona.OpcionDocumentos());
+	}
+
+	@Then("^Descarga el documento$")
+	public void descargaElDocumento() {
+	    
+		Lina.attemptsTo(Descarga.Documento());
+	}
+
+
+	   
 }
 
     
